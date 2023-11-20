@@ -1,0 +1,35 @@
+-- Create the users table
+CREATE TABLE users (
+  username varchar(15) PRIMARY KEY,
+  password varchar(100),
+  enabled boolean
+);
+
+-- Create the authorities table
+CREATE TABLE authorities (
+  username varchar(15) REFERENCES users(username),
+  authority varchar(25)
+);
+
+-- Insert data into the users table
+INSERT INTO users (username, password, enabled)
+VALUES
+  ('zaur', '{noop}zaur', true),
+  ('elena', '{noop}elena', true),
+  ('ivan', '{noop}ivan', true);
+
+-- Insert data into the authorities table
+INSERT INTO authorities (username, authority)
+VALUES
+  ('zaur', 'ROLE_EMPLOYEE'),
+  ('elena', 'ROLE_HR'),
+  ('ivan', 'ROLE_HR'),
+  ('ivan', 'ROLE_MANAGER');
+//-----------------------------//
+UPDATE users
+SET enabled = false
+WHERE username = 'zaur';
+//----------------------------//
+UPDATE users
+SET password = '$2a$10$.54cst/p6Hyn6DvuSkOwnOmagywqvFvhBy9u9NZ8S3JN8k.nKpSyK'
+WHERE username = 'zaur';
